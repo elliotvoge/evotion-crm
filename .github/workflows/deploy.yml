@@ -1,5 +1,28 @@
-    - uses: Azure/functions-action@v1
+name: Deploy Azure Function App
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node
+      uses: actions/setup-node@v4
       with:
-        app-name: EvotionSalesCRMFunction
+        node-version: "20"
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Deploy to Azure Functions
+      uses: Azure/functions-action@v1
+      with:
+        app-name: EvotionSalesCRMFunction      # exact Function App name
         package: .
         publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
