@@ -26,3 +26,4 @@ jobs:
         app-name: EvotionSalesCRMFunction      # exact Function App name
         package: .
         publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
+        slot-name: Production 
